@@ -2,9 +2,10 @@
 
 
 let operatorSign = "";
-let firstNum = 0;
+let firstNum = "";
 let secondNum = "";
 let negation = "";
+
 
 
 
@@ -44,11 +45,12 @@ function selectOperator(operator){
 
     if(operator.innerText === "+") operatorSign = "+";
 
-    if(operator.innerText === "=") operation(firstNum,secondNum,operatorSign);
+    if(operator.innerText === "=") operation(Number(firstNum),Number(secondNum),operatorSign);
 
-
-
+    
     updateScreenValue();
+
+    
 
 }
 
@@ -58,7 +60,7 @@ function editNumber(number){
     
     if(number.innerText === "C") 
         {
-            firstNum = 0;
+            firstNum = "";
             secondNum = "";
             operatorSign = "";
         } ;
@@ -71,10 +73,20 @@ function editNumber(number){
 }
 
 
-function updateScreenValue(){
+function updateScreenValue(errorStatus){
 
+    
     let variablesOnScreen = [negation,firstNum,operatorSign,secondNum]
     screen.value = variablesOnScreen.join("");
+
+  
+}
+
+function resetValues(){
+
+    negation = "";
+    operatorSign = "";
+    secondNum = "";
 
 }
 
@@ -83,13 +95,14 @@ function assignNumber(number){
    
     if(operatorSign === ""){
 
-        firstNum = number.innerText;
+        firstNum = firstNum.concat(number.innerText);
         
 
     } else {
 
-        secondNum = number.innerText;
+       secondNum = secondNum.concat(number.innerText);
     }
+    
     
     updateScreenValue();
 }
@@ -99,6 +112,7 @@ function add(a , b){
 
     let sum = a + b;
 
+    
     firstNum = sum;
    
 }
@@ -123,14 +137,17 @@ function multiply(a , b){
 
 function divide(a , b){
 
-    if (b == 0 ){
+    if (b === 0 ){
 
-        return "Error";
+       return "error";
+        
+
+    } else {
+
+        let division = a / b;
+
+        firstNum = division;
     }
-
-    let division = a / b;
-
-    firstNum = division;
 
 }
 
@@ -143,7 +160,7 @@ function operation(firstNum , secondNum , operator){
         add(firstNum,secondNum);
 
     }
-    if(operator === "-"){
+    if(operator === "−"){
 
         subtract(firstNum,secondNum);
         
@@ -160,5 +177,6 @@ function operation(firstNum , secondNum , operator){
         divide(firstNum,secondNum);
     }
 
+    resetValues();
 
 }
