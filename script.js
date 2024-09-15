@@ -1,13 +1,7 @@
 
-
-
 let operatorSign = "";
 let firstNum = "";
 let secondNum = "";
-
-
-
-
 
 
 let numbers = document.querySelectorAll(".numbers button:not(.top)");
@@ -37,18 +31,20 @@ operators.forEach(operator => {
 
 function selectOperator(operator){
 
-    if(operator.innerText === "÷") operatorSign = "÷";
+    if(!firstNum == ""){
+        if(operator.innerText === "÷") operatorSign = "÷";
 
-    if(operator.innerText === "×") operatorSign = "×";
+        if(operator.innerText === "×") operatorSign = "×";
+        
+        if(operator.innerText === "−") operatorSign = "−";
+
+        if(operator.innerText === "+") operatorSign = "+";
+
+        if(operator.innerText === "=") operation(Number(firstNum),Number(secondNum),operatorSign);
+        
+        updateScreenValue();
     
-    if(operator.innerText === "−") operatorSign = "−";
-
-    if(operator.innerText === "+") operatorSign = "+";
-
-    if(operator.innerText === "=") operation(Number(firstNum),Number(secondNum),operatorSign);
-
-    
-    updateScreenValue();
+    }
 
     
 
@@ -56,7 +52,16 @@ function selectOperator(operator){
 
 function editNumber(number){
 
-    //if(number.innerText === "%" && variablesOnScreen[1] > 0);
+    if(number.innerText === "%"){
+
+        if(operatorSign === ""){
+           firstNum = firstNum / 100;
+        } else 
+        if (operatorSign !== ""){
+            
+            secondNum = secondNum / 100;
+        }
+    };
     
     if(number.innerText === "C") 
         {
@@ -82,27 +87,54 @@ function updateScreenValue(){
 
     
     let variablesOnScreen = [`${firstNum}`,`${operatorSign}`,`${secondNum}`]
-    screen.value = variablesOnScreen.join("");
+
+    if(screen.value.length > 15){
+
+        screen.value = "Calm Down";
+        firstNum = "";
+        secondNum = "";
+        operatorSign = "";
+        
+    } else {
+    screen.value = variablesOnScreen.join("");}
 
   
 }
 
 function assignNumber(number){
     
-   
-    if(operatorSign === ""){
-
-        firstNum = firstNum.concat(number.innerText);
-
-    } else {
-
-       secondNum = secondNum.concat(number.innerText);
-       
-    }
+    firstNum = String(firstNum);
+    secondNum = String(secondNum);
     
+    
+
+    if(number.innerText === "."){
+
+        if (!firstNum.includes(".") && operatorSign === "") {
+            firstNum = firstNum.concat(".");
+        } else
+        if (!secondNum.includes(".") && operatorSign !== "") {
+            secondNum = secondNum.concat(".");
+        } 
+    } 
+        else {
+
+            if(operatorSign === ""){
+
+                
+                firstNum = firstNum.concat(number.innerText);
+
+            } else {
+
+            secondNum = secondNum.concat(number.innerText);
+            
+            } 
+        }
+        
     
     updateScreenValue();
 }
+
 
 
 function toggleNegation(){
@@ -193,8 +225,11 @@ function divide(a , b){
 
     if (b === 0 ){
 
-       return "error";
-        
+       firstNum = "Error";
+
+       setTimeout(() => {
+        firstNum = "";
+       }, 100) 
 
     } else {
 
