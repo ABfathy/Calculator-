@@ -4,7 +4,7 @@
 let operatorSign = "";
 let firstNum = "";
 let secondNum = "";
-let negation = "";
+
 
 
 
@@ -63,9 +63,14 @@ function editNumber(number){
             firstNum = "";
             secondNum = "";
             operatorSign = "";
+           
         } ;
     
-    if(number.innerText === "+/-") variablesOnScreen.shift = "-";
+    if(number.innerText === "+/-") {
+
+       toggleNegation();
+
+    };
 
     updateScreenValue();
     
@@ -73,21 +78,13 @@ function editNumber(number){
 }
 
 
-function updateScreenValue(errorStatus){
+function updateScreenValue(){
 
     
-    let variablesOnScreen = [negation,firstNum,operatorSign,secondNum]
+    let variablesOnScreen = [`${firstNum}`,`${operatorSign}`,`${secondNum}`]
     screen.value = variablesOnScreen.join("");
 
   
-}
-
-function resetValues(){
-
-    negation = "";
-    operatorSign = "";
-    secondNum = "";
-
 }
 
 function assignNumber(number){
@@ -96,11 +93,11 @@ function assignNumber(number){
     if(operatorSign === ""){
 
         firstNum = firstNum.concat(number.innerText);
-        
 
     } else {
 
        secondNum = secondNum.concat(number.innerText);
+       
     }
     
     
@@ -108,11 +105,68 @@ function assignNumber(number){
 }
 
 
+function toggleNegation(){
+
+    
+    if(operatorSign === ""){
+        firstNum = toggleNegative(firstNum);
+
+    } else {
+
+        secondNum = toggleNegative(secondNum);
+    }
+
+}
+
+
+function toggleNegative(num) {
+    
+    num = String(num);
+    return num.startsWith("-") ? num.slice(1) : "-" + num;
+}
+
+
+
+function operation(firstNum , secondNum , operator){
+
+
+    if(operator === "+"){
+
+        add(firstNum,secondNum);
+
+    }
+    if(operator === "−"){
+
+        subtract(firstNum,secondNum);
+        
+    }
+
+    if(operator === "×"){
+
+        multiply(firstNum,secondNum);
+        
+    }
+
+    if(operator === "÷"){
+        
+        divide(firstNum,secondNum);
+    }
+
+    resetValues();
+
+}
+
+function resetValues(){
+
+    operatorSign = "";
+    secondNum = "";
+   
+
+}
+
 function add(a , b){
 
     let sum = a + b;
-
-    
     firstNum = sum;
    
 }
@@ -148,35 +202,5 @@ function divide(a , b){
 
         firstNum = division;
     }
-
-}
-
-
-function operation(firstNum , secondNum , operator){
-
-
-    if(operator === "+"){
-
-        add(firstNum,secondNum);
-
-    }
-    if(operator === "−"){
-
-        subtract(firstNum,secondNum);
-        
-    }
-
-    if(operator === "×"){
-
-        multiply(firstNum,secondNum);
-        
-    }
-
-    if(operator === "÷"){
-        
-        divide(firstNum,secondNum);
-    }
-
-    resetValues();
 
 }
