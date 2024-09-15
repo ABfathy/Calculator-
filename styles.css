@@ -5,16 +5,20 @@
     padding: 0;
 }
 
+
+
 .container{
 
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap:20px;
     padding: 30px;
     background-color: #c2c2bb; 
     font-family: sans-serif;
+    color:#252525;
 
 }
 
@@ -24,27 +28,31 @@
     flex-direction: column;
     width:400px;
     height:600px;
-    padding: 12px;
-    gap:20px;
-    border: 2px solid #1c1c1c;
+    padding: 13px;
+    gap:10px;
+    border: 2px solid #000000;
+    box-shadow: 0px 0px 15px 7px #ffffff;
     border-radius: 15px;
-    background-color: #1c1c1c;
-
-
+    background-color: #252525;
     
 }
 
 input {
 
-    height:80px;
-    border:none;
+    flex:1;
+    border:gray inset;
+    outline:none;
     background-color: #1c1c1c;
+    font-size: 40px;
+    text-align: right;
+    color:white;
+    padding: 10px;
 }
 
-.input {
+.pad{
     display: flex; 
     flex:1; 
-    gap:10px;
+    gap: 10px;
 }
 
 .numbers{
@@ -90,9 +98,9 @@ button{
 
     min-width:85px;
     min-height:85px;
-    flex:1;
     border-radius: 50%;
     border: none;
+    
 }
 
 .numbers > .top:hover{
@@ -104,7 +112,6 @@ button{
 .numbers > button:hover {
     background-color: #686767;
     scale:1.1;
-
 
 }
 
@@ -122,13 +129,14 @@ button{
     min-width:180px;
     border-radius:  40px;
     
-
 }
 
 footer{
     display: flex;
     align-items: center;
     gap:10px;
+    
+   
 }
 img {
 
